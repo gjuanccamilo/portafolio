@@ -1,4 +1,4 @@
-# Portafolio de Juan Camilo Giraldo Gómez
+# Portafolio de Juan Camilo Giraldo Gomez
 
 Portafolio personal de un desarrollador de software enfocado en backend, hecho con **HTML5, CSS y JavaScript nativo**: sin frameworks, sin librerías y sin paso de compilación. Está listo para publicarse gratis en **Netlify** o **Vercel**.
 
