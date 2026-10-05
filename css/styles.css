@@ -1,0 +1,196 @@
+/* Portafolio de Juan Camilo Giraldo Gómez
+   Hoja de estilos única. Está organizada en "capas": cada bloque ajusta o
+   amplía el anterior (base, estilo iOS, centrado, pila de tarjetas,
+   accesibilidad e intro). Los comentarios de cada capa explican su objetivo. */
+
+/* ===== Capa 1 · Base: colores, tipografía, componentes y secciones ===== */
+:root{--bg:#f2f2f7;--card:#fff;--fill:#f2f2f7;--tint:#eaf3ff;--ink:#1c1c1e;--muted:#6b7280;--line:rgba(60,60,67,.2);--blue:#007aff;--glass:rgba(242,242,247,.78);--shadow:0 10px 30px rgba(0,0,0,.07);--hov:linear-gradient(135deg,#007aff 0%,#007aff 40%,#5e5ce6 72%,#af52de 100%);--code:#0b1220;--code-ink:#cfe3ea;--code-key:#6fd0e6;--code-str:#f2c879;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--card:#1c1c1e;--fill:#2c2c2e;--tint:#0f2238;--ink:#f5f5f7;--muted:#98989f;--line:rgba(235,235,245,.16);--blue:#0a84ff;--glass:rgba(0,0,0,.72);--shadow:0 10px 30px rgba(0,0,0,.5)}}
+:root[data-theme="dark"]{--bg:#000;--card:#1c1c1e;--fill:#2c2c2e;--tint:#0f2238;--ink:#f5f5f7;--muted:#98989f;--line:rgba(235,235,245,.16);--blue:#0a84ff;--glass:rgba(0,0,0,.72);--shadow:0 10px 30px rgba(0,0,0,.5)}
+html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",sans-serif;line-height:1.12;margin:0;letter-spacing:-.02em}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+nav{display:flex;align-items:center;gap:1rem;height:56px}
+nav .brand{font-weight:700;color:var(--ink);text-decoration:none;margin-right:auto;letter-spacing:-.02em}
+nav .links{display:flex;gap:1.1rem;overflow-x:auto;scrollbar-width:none}
+nav .links a{color:var(--muted);text-decoration:none;font-size:.9rem;white-space:nowrap;transition:color .25s}
+nav .links a:hover{color:var(--blue)}
+.btn,button.theme{background-image:var(--hov);background-size:230% 100%;background-position:0 0;transition:background-position .5s ease,color .3s,transform .2s,box-shadow .3s;cursor:pointer}
+button.theme{border:1px solid var(--line);background-color:transparent;background-image:none;color:var(--ink);border-radius:999px;padding:.3rem .85rem;font:inherit;font-size:.85rem}
+button.theme:hover{background-image:var(--hov);background-position:100% 0;color:#fff;border-color:transparent}
+main{display:grid;gap:1.25rem;padding:1.25rem 1.25rem 2rem;max-width:64.5rem;margin:0 auto}
+main>section{background:var(--card);border-radius:30px;padding:2.5rem;box-shadow:var(--shadow)}
+#inicio,#contacto{background:linear-gradient(145deg,#0a84ff,#0040dd);color:#fff;--ink:#fff;--muted:rgba(255,255,255,.84);--fill:rgba(255,255,255,.16);--line:rgba(255,255,255,.4);--blue:#fff}
+#proyectos{background:var(--tint);--fill:var(--card)}
+@media(max-width:40rem){main>section{padding:1.5rem;border-radius:24px}}
+h2{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:1.5rem}
+.hero{display:grid;gap:2.5rem;grid-template-columns:1fr;align-items:center}
+@media(min-width:56rem){.hero{grid-template-columns:1.1fr .9fr}}
+.hero h1{font-size:clamp(2.3rem,7vw,4rem);font-weight:700}
+.hero .role{font-size:1.25rem;color:var(--muted);margin:1rem 0 2rem}
+.avatar{display:block;width:7.5rem;height:7.5rem;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 8px 24px rgba(0,0,0,.25);margin-bottom:1.25rem}
+.btns{display:flex;gap:.8rem;flex-wrap:wrap}
+.btn{display:inline-block;padding:.75rem 1.4rem;border-radius:999px;text-decoration:none;font-weight:600;border:1.5px solid transparent}
+.btn.primary{color:#fff}
+.btn.ghost{color:var(--blue);border-color:var(--blue);background-image:none}
+.btn:hover{background-position:100% 0;transform:translateY(-2px);box-shadow:0 10px 24px rgba(94,92,230,.35)}
+.btn.ghost:hover{background-image:var(--hov);color:#fff;border-color:transparent}
+#inicio .btn.primary{background-image:linear-gradient(135deg,#fff 0%,#fff 40%,#e3d6ff 100%);color:#0040dd}
+#inicio .btn.ghost:hover{background-image:linear-gradient(135deg,#fff,#e3d6ff);color:#0040dd}
+pre.api{margin:0;background:rgba(5,12,30,.55);color:var(--code-ink);border-radius:22px;padding:1.25rem;font:.9rem/1.6 ui-monospace,"SF Mono",Menlo,Consolas,monospace;overflow-x:auto}
+.api .k{color:var(--code-key)}.api .s{color:var(--code-str)}.api .m{opacity:.65}
+.prose{max-width:42rem}
+.todo{border:1.5px dashed var(--line);border-radius:18px;padding:1rem 1.2rem;color:var(--muted);background:transparent}
+.todo strong{color:var(--ink)}
+.timeline{list-style:none;margin:0;padding:0 0 0 1.4rem;border-left:2px solid var(--line);display:grid;gap:1.5rem}
+.timeline li{position:relative}
+.timeline li::before{content:"";position:absolute;left:calc(-1.4rem - 6px);top:.55rem;width:10px;height:10px;border-radius:50%;background:var(--blue)}
+.timeline h3{font-size:1.2rem;margin-bottom:.35rem}
+.timeline p{margin:.4rem 0;max-width:42rem}
+.tag{display:inline-block;margin-left:.5rem;padding:.1rem .65rem;background:var(--blue);color:#fff;border-radius:999px;font:600 .75rem -apple-system,"Inter",sans-serif;vertical-align:middle}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.box{background:var(--fill);border-radius:22px;padding:1.2rem 1.3rem;transition:transform .3s ease,box-shadow .3s ease}
+.box:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,64,221,.16)}
+.box.todo{background:transparent}
+.box h3{font-size:1.05rem;margin-bottom:.4rem}
+.box p{margin:0;color:var(--muted);font-size:.97rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:0;padding:0;list-style:none}
+.chips li{background:var(--card);color:var(--ink);border-radius:999px;padding:.25rem .85rem;font-size:.9rem;font-weight:500}
+#proyectos .chips li{background:var(--fill);}
+.chips li.learning{background:transparent;border:1.5px dashed var(--blue);color:var(--blue)}
+#proyectos .box{background:var(--card)}
+.story{margin-top:2rem;padding:1.5rem;background:var(--fill);border-left:4px solid var(--blue);border-radius:22px;max-width:46rem}
+.story h3{font-size:1.3rem;margin-bottom:.8rem}
+.story p{margin:.6rem 0}
+.story .lead{color:var(--blue);font-weight:600;margin-top:0}
+.story figure{margin:1.2rem 0}
+.story figure img{width:100%;max-height:26rem;object-fit:cover;border-radius:16px;display:block}
+.story figcaption{margin-top:.5rem;font-size:.9rem;color:var(--muted)}
+.proj{display:flex;flex-direction:column;gap:.7rem}
+.proj p{margin:0}
+.proj .chips{margin-top:.2rem}
+.proj .vid{display:flex;justify-content:center;background:#000;border-radius:16px}
+.proj .vid video{height:22rem;max-width:100%;border-radius:16px}
+.proj .ph,.proj img{width:100%;aspect-ratio:2.6/1;object-fit:cover;border-radius:16px}
+.proj .ph{display:grid;place-items:center;border:1.5px dashed var(--line);color:var(--muted);font-size:.9rem}
+.hobby-img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:16px;margin-bottom:.9rem}
+dl{margin:0;display:grid;gap:.9rem}dt{font-weight:600}dd{margin:0;color:var(--muted)}
+#contacto a{color:#fff;font-weight:500}
+footer{padding:1rem 0 2rem;color:var(--muted);font-size:.9rem;text-align:center}
+.js .rv{opacity:0;transform:translateY(36px) scale(.98);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+.js .box.rv.in:hover{transform:translateY(-4px)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .rv{opacity:1;transform:none;transition:none}}
+
+/* ===== Capa 2 · Estilo iOS: tarjetas, degradados y botones ===== */
+/* ---- centrado, iconos y botones ---- */
+nav .brand{margin-right:0}
+nav .links{flex:1;justify-content:safe center}
+main>section{text-align:center}
+.hero{grid-template-columns:1fr!important;justify-items:center;text-align:center}
+.hero .btns,.btns{justify-content:center}
+.avatar{margin-left:auto;margin-right:auto}
+pre.api{text-align:left;width:100%;max-width:30rem;margin:0 auto}
+.prose{margin:0 auto}
+.timeline{border-left:0;padding:0;max-width:46rem;margin:0 auto;gap:1rem}
+.timeline>li{background:var(--fill);border-radius:22px;padding:1.5rem}
+.timeline li::before{display:none}
+.timeline p{margin-left:auto;margin-right:auto}
+.chips{justify-content:center}
+.story{margin-left:auto;margin-right:auto;border-left:0;text-align:center}
+.story .lead{display:inline-block;background:var(--card);color:var(--ink);font-weight:500;font-size:.95rem;padding:.4rem 1.1rem;border-radius:999px;margin:0 0 .8rem}
+.proj{align-items:center;text-align:center}
+.ico{width:3rem;height:3rem;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;line-height:1;background:linear-gradient(135deg,#0a84ff,#5e5ce6);box-shadow:0 6px 16px rgba(10,132,255,.3);margin:0 auto .7rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.8rem 1.6rem;color:#fff;background-image:var(--hov);background-size:230% 100%;border:0;box-shadow:0 8px 20px rgba(0,122,255,.35)}
+.btn svg{width:1.1em;height:1.1em;flex:none;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.btn svg.f,.ico svg.f{fill:currentColor;stroke:none}
+.btn.sm{padding:.5rem 1.1rem;font-size:.9rem;margin-top:.9rem}
+.box .btn{color:#fff}
+#inicio .btn{background-image:linear-gradient(135deg,#fff 0%,#fff 40%,#e3d6ff 100%);color:#0040dd;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+.contact{grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1rem}
+.ci{display:flex;flex-direction:column;align-items:center;gap:.25rem;background:var(--fill);border-radius:22px;padding:1.4rem 1rem;transition:transform .3s}
+.ci:hover{transform:translateY(-4px)}
+.ci .ico{background:rgba(255,255,255,.22);box-shadow:none}
+.ci .ico svg{width:1.5rem;height:1.5rem;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ci .ico svg.f{fill:#fff;stroke:none}
+.ci dd{word-break:break-word}
+#contacto dd,#contacto dd a{color:#fff}
+
+/* ===== Capa 3 · Centrado, iconos y botones unificados ===== */
+/* ---- fondo alegre + pila de tarjetas ---- */
+html{background:var(--bg)}
+body{background:none}
+body::before{content:"";position:fixed;inset:-10%;z-index:-1;background:radial-gradient(45% 40% at 12% 10%,#ffc2e0 0,transparent 70%),radial-gradient(45% 40% at 90% 14%,#a9d8ff 0,transparent 70%),radial-gradient(50% 45% at 88% 90%,#ffe2a6 0,transparent 70%),radial-gradient(45% 45% at 8% 88%,#b9f2d4 0,transparent 70%),#f6f2ff;animation:drift 20s ease-in-out infinite alternate}
+@keyframes drift{from{transform:scale(1) translate(0,0)}to{transform:scale(1.1) translate(1.5%,-1.5%)}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body::before{background:radial-gradient(45% 40% at 12% 10%,#8b2f8f 0,transparent 70%),radial-gradient(45% 40% at 90% 14%,#0a5bd6 0,transparent 70%),radial-gradient(50% 45% at 88% 90%,#0f8a8a 0,transparent 70%),radial-gradient(45% 45% at 8% 88%,#5a2bc0 0,transparent 70%),#0b0b22}}
+:root[data-theme="dark"] body::before{background:radial-gradient(45% 40% at 12% 10%,#8b2f8f 0,transparent 70%),radial-gradient(45% 40% at 90% 14%,#0a5bd6 0,transparent 70%),radial-gradient(50% 45% at 88% 90%,#0f8a8a 0,transparent 70%),radial-gradient(45% 45% at 8% 88%,#5a2bc0 0,transparent 70%),#0b0b22}
+main{display:block;padding:1.25rem 1.25rem 5rem}
+main>section{position:sticky;margin-bottom:1.25rem;min-height:calc(100vh - 96px);min-height:calc(100svh - 96px);display:flex;flex-direction:column;justify-content:center;box-shadow:0 -14px 40px rgba(30,40,110,.16),var(--shadow);transform-origin:center top;will-change:transform}
+main>section.hero{align-items:center}
+.grid{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem}
+.grid>*{flex:1 1 15rem;max-width:22rem}
+.contact{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem}
+.contact .ci{flex:1 1 13rem;max-width:20rem}
+.hobby-img{margin:1rem 0 0}
+.js .ci.rv.in:hover{transform:translateY(-4px)}
+@media(prefers-reduced-motion:reduce){body::before{animation:none}main>section{will-change:auto}}
+
+/* ===== Capa 4 · Fondo alegre y pila de tarjetas ===== */
+/* ---- accesibilidad, intro, terminal, iconos, responsive ---- */
+:root{--blue:#0063d6;--muted:#586271;--hov:linear-gradient(135deg,#0a63d8 0%,#0a63d8 40%,#5e5ce6 72%,#9b3fd1 100%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--blue:#4da3ff;--muted:#a1a1a8}}
+:root[data-theme="dark"]{--blue:#4da3ff;--muted:#a1a1a8}
+#inicio,#contacto{background:linear-gradient(145deg,#0a6bf0,#0036b8);--muted:rgba(255,255,255,.92)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:1rem;top:-4rem;z-index:100;background:#fff;color:#0036b8;padding:.6rem 1rem;border-radius:12px;font-weight:600;transition:top .2s}
+.skip:focus{top:calc(.75rem + env(safe-area-inset-top,0px))}
+main:focus{outline:none}
+img,video{max-width:100%}
+.tag{background:#0a63d8}
+.btn{min-height:44px}.btn.sm{min-height:40px}
+.typing .tw-full{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero h1{min-height:1.15em}
+.caret{display:inline-block;width:.07em;height:.85em;margin-left:.06em;background:currentColor;vertical-align:-.06em;animation:blink 1s steps(2) infinite}
+.caret.done{opacity:0;animation:none;transition:opacity .4s}
+html:not(.typing) .caret,html:not(.typing) .tw{display:none}
+@keyframes blink{50%{opacity:0}}
+.term{width:100%;max-width:32rem;text-align:left;background:rgba(6,14,36,.62);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.2);border-radius:22px;overflow:hidden;box-shadow:0 18px 40px rgba(0,20,90,.35)}
+.term-bar{display:flex;align-items:center;gap:.4rem;padding:.7rem 1rem;background:rgba(255,255,255,.08)}
+.dot{width:.7rem;height:.7rem;border-radius:50%}.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.term-title{margin-left:.5rem;font:.8rem ui-monospace,"SF Mono",Menlo,monospace;color:rgba(255,255,255,.75)}
+.term-btns{display:flex;flex-wrap:wrap;gap:.5rem;padding:.9rem 1rem 0}
+.term-btns button{font:500 .85rem ui-monospace,"SF Mono",Menlo,monospace;color:#fff;background:rgba(255,255,255,.14);border:0;border-radius:999px;padding:.45rem .9rem;min-height:40px;cursor:pointer;background-size:230% 100%;transition:background-position .5s,transform .2s}
+.term-btns button:hover,.term-btns button[aria-pressed="true"]{background-image:var(--hov);background-position:100% 0;transform:translateY(-2px)}
+.term-out{margin:0;padding:1rem;min-height:8.2rem;color:#d9ecff;font:.9rem/1.6 ui-monospace,"SF Mono",Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+.ico{margin-bottom:.8rem}
+main>section>.ico{width:3.4rem;height:3.4rem;font-size:1.7rem;margin-bottom:.9rem;align-self:center}
+#inicio .ico,#contacto>.ico{background:rgba(255,255,255,.22);box-shadow:none}
+.timeline .ico,.story .ico{margin-bottom:.6rem}
+.wii-fig{margin:1.2rem 0}
+.wii{display:block;width:100%;max-width:19rem;height:auto;margin:0 auto .9rem;color:var(--ink)}
+.led{animation:blink 2s steps(2) infinite}
+.proj .vid,.proj img{height:13rem;aspect-ratio:auto}
+.proj .vid video{height:100%}
+.proj>p:last-child{margin-top:auto;width:100%;display:flex;justify-content:center;padding-top:.5rem}
+.proj .btn{width:100%;max-width:18rem}
+@media(max-width:40rem){nav{gap:.5rem}nav .brand{font-size:.95rem}main{padding:.75rem .75rem 4rem}.hero h1{font-size:clamp(2rem,9vw,2.6rem)}.timeline>li{padding:1.1rem}.term-btns button{flex:1 1 40%}.proj .vid,.proj img{height:11rem}.grid>*{flex-basis:100%}}
+@media(prefers-reduced-motion:reduce){.caret,.led{animation:none}.term-btns button{transition:none}}
+
+/* ===== Capa 5 · Accesibilidad, intro, terminal y responsive ===== */
+.wii{max-width:19rem}
+.glow{animation:pulse 2.2s ease-in-out infinite alternate}
+.bar{transform-box:fill-box;transform-origin:left center;animation:load 3.2s ease-in-out infinite}
+@keyframes pulse{from{opacity:.35}to{opacity:1}}
+@keyframes load{0%{transform:scaleX(.04)}75%,100%{transform:scaleX(1)}}
+@media(prefers-reduced-motion:reduce){.glow,.bar{animation:none}}
+
+/* ===== Capa 6 · Ilustración de la Wii ===== */
+.js .rv{transition-delay:0s}
+.js .rv.in{transition-delay:var(--d,0s)}
+.js .rv.in:hover{transition-delay:0s}
+
